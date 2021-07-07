@@ -26,13 +26,13 @@
             <div class="calc__keys" v-show="showCalcKeys">
                 <button v-for="key in CalcKeys"
                         v-bind:key="key"
-                        @click="operand1 = key">{{ key }}
+                        @click="addKeys(key)">{{ key }}
                 </button>
-                <button>&larr;</button>
+                <button @click="delKeys">&larr;</button>
                 <div>
-                    <input type="radio" name="radio" id="op1" v-model="operand1">
+                    <input type="radio" name="radio" id="op1" value="operand1" v-model="picked">
                     <label for="op1">Операнд 1</label>
-                    <input type="radio" name="radio" id="op2" v-model="operand2">
+                    <input type="radio" name="radio" id="op2" value="operand2" v-model="picked">
                     <label for="op2">Операнд 2</label>
                 </div>
             </div>
@@ -52,11 +52,31 @@ export default {
             buttons: ['+','-','*','/','Pow','C'],
             logs: {},
             CalcKeys: [0,1,2,3,4,5,6,7,8,9],
-            num: '',
+            picked: '',
             showCalcKeys: false,
         }
     },
     methods: {
+        addKeys(key) {
+            if(this.picked == 'operand1') {
+                this.operand1 += key.toString();
+                this.operand1 = parseInt(this.operand1);
+            }
+            if(this.picked == 'operand2') {
+                this.operand2 += key.toString();
+                this.operand2 = parseInt(this.operand2);
+            }
+        },
+        delKeys() {
+            if(this.picked == 'operand1') {
+                this.operand1 = this.operand1.toString().slice(0, -1);
+                this.operand1 = parseInt(this.operand1);
+            }
+            if(this.picked == 'operand2') {
+                this.operand2 = this.operand2.toString().slice(0, -1);
+                this.operand2 = parseInt(this.operand2);
+            }
+        },
         add() {
             this.result = this.operand1 + this.operand2
         },
