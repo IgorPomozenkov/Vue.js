@@ -4,8 +4,8 @@
       <h2 :class="[$style.title]">My personal costs</h2>
     </header>
     <main>
-      <Button/>
-      <AddPaymentForm @addNewPayment="addData"/>
+      <Button @clicked="show =! show"/>
+      <AddPaymentForm v-show="show" @addNewPayment="addData"/>
       <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
@@ -26,6 +26,7 @@ export default {
   data(){
     return {
       paymentsList: [],
+      show: false
     }
   },
   methods: {
@@ -34,9 +35,7 @@ export default {
       this.paymentsList = [...this.paymentsList, data]
     },
   },
-  created(){
-    //this.paymentsList = this.fetchData()
-  }
+  created(){}
 }
 </script>
 

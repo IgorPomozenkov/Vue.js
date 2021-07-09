@@ -1,8 +1,8 @@
 <template>
-    <div class="form">
-        <input type="date" placeholder="Date" v-model="date" />
-        <input type="text" placeholder="Type" v-model="type" />
-        <input type="number" placeholder="Value" v-model.number="value" />
+    <div :class="[$style.form]">
+        <input type="date" placeholder="Payment date" v-model="date"/>
+        <input type="text" placeholder="Payment description" v-model="type"/>
+        <input type="number" placeholder="Payment amount" v-model.number="value"/>
         <button @click="onSaveClick">ADD<span>+</span></button>
   </div>
 </template>
@@ -41,6 +41,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" module>
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
 
+.form input {
+    margin-bottom: 11px;
+    padding: 5px;
+    border: 2px solid #c0c0c082;
+    outline: none;
+}
+
+.form button {
+    width: 130px;
+    align-self: flex-end;
+}
 </style>
