@@ -1,7 +1,8 @@
 <template>
-    <div >
-        <select v-model="selected">
-            <option v-for="option in categories" :key="option" :value="option">
+    <div>
+        <select :class="[$style.select]" v-model="selected" @click="onClick">
+            <option disabled value="">Выберите категорию</option>
+            <option v-for="option in categories" :key="option" :value="option" >
                 {{ option }}
             </option>
         </select>
@@ -9,6 +10,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'CategorySelect',
     props: {
@@ -21,11 +23,22 @@ export default {
         return {
             selected: ''
         }
+    },
+    methods: {
+        onClick(){
+            const data = this.selected;
+            this.$emit('addSelect', data);
+        }
     }
 }
 </script>
 
 <style lang="scss" module>
-
-
+.select {
+    width: 100%;
+    border: 2px solid #c0c0c082;
+    margin-bottom: 11px;
+    padding: 5px;
+    outline: none;
+}
 </style>

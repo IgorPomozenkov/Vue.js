@@ -6,7 +6,6 @@
     <main>
       <Button @clicked="show =! show"/>
       <AddPaymentForm v-show="show" @addNewPayment="addData"/>
-      <CategorySelect :categories="categories"/>
       <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
@@ -16,7 +15,6 @@
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPaymentForm from './components/AddPaymentForm.vue'
 import Button from './components/Button.vue'
-import CategorySelect from './components/CategorySelect.vue'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -25,7 +23,6 @@ export default {
     PaymentsDisplay,
     AddPaymentForm,
     Button,
-    CategorySelect
   },
   data(){
     return {
@@ -76,5 +73,4 @@ export default {
 .title {
   margin: 20px;
 }
-
 </style>

@@ -1,15 +1,22 @@
 <template>
     <div :class="[$style.form]">
         <input type="date" placeholder="Payment date" v-model="date"/>
-        <input type="text" placeholder="Payment description" v-model="type"/>
+        <!-- <input type="text" placeholder="Payment description" v-model="type"/> -->
+        <CategorySelect :categories="categories" @addSelect="addSelect"/>
         <input type="number" placeholder="Payment amount" v-model.number="value"/>
         <button @click="onSaveClick">ADD<span>+</span></button>
   </div>
 </template>
 
 <script>
+import CategorySelect from './CategorySelect.vue'
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'AddPaymentForm',
+    components: {
+        CategorySelect
+    },
     data(){
         return {
             date: '',
@@ -26,9 +33,15 @@ export default {
                 value
             }
             this.$emit('addNewPayment', data);
+        },
+        addSelect(data){
+            this.type = data;
         }
     },
     computed: {
+        ...mapGetters({
+            categories: 'getCategoryList'
+        }),
         getCurrentDate(){
             const today = new Date();
             const d = today.getDate();
