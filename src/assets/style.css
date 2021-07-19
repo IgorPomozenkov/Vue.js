@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #19b16b;
+    color: white;
+    cursor: pointer;
+}
+
+button span {
+    margin-left: 15px;
+}
