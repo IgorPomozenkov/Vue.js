@@ -21,8 +21,7 @@
 
       <Button @clicked="show =! show" />
       <AddPaymentForm v-show="show" @addNewPayment="addData"/>
-      <PaymentsDisplay @clicked="modalShow =! modalShow" :list="paymentsList"/>
-      <ModalWindow v-if="modalShow" />
+      <PaymentsDisplay :list="paymentsList"/>
     </main>
   </div>
 </template>
@@ -31,7 +30,6 @@
 import PaymentsDisplay from './components/PaymentsDisplay.vue'
 import AddPaymentForm from './components/AddPaymentForm.vue'
 import Button from './components/Button.vue'
-import ModalWindow from './components/ModalWindow.vue'
 // import Dashboard from './components/Dashboard.vue'
 // import About from './components/About.vue'
 // import NotFound from './components/NotFound.vue'
@@ -43,7 +41,6 @@ export default {
     PaymentsDisplay,
     AddPaymentForm,
     Button,
-    ModalWindow
     // Dashboard,
     // About,
     // NotFound

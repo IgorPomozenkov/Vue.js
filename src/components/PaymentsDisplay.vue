@@ -1,30 +1,47 @@
 <template>
     <div :class="[$style.wrapper]">
         <div :class="[$style.items]" v-for="(item, idx) in list" :key="idx">
-            <span>{{idx + 1}}</span>
+            <span>{{idx += 1}}</span>
             <span>{{item.date}}</span>
             <span>{{item.type}}</span>
             <span>{{item.value}}</span>
-            <p @click="onClick">...</p>
+            <p :class="[$style.btn]" @click="modalCheck(idx)">&#8942;</p>
+            <transition name="fade">
+                <ModalWindow v-if="modalShow == idx " />
+            </transition>
         </div>
         <p>Total: {{ getFPV }}</p>
     </div>
 </template>
 
 <script>
+import ModalWindow from './ModalWindow.vue'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'PaymentsDisplay',
+    components: {
+        ModalWindow,
+    },
     props: {
         list: {
             type: Array,
             default: () => []
         }
     },
+    data(){
+        return {
+            modalShow: '',
+            modalSettings: {}
+        }
+    },
     methods: {
-        onClick(){
-            this.$emit('clicked');
+        modalCheck(idx){
+            if(this.modalShow == '') {
+                this.modalShow = idx;
+            }else if(this.modalShow) {
+                this.modalShow = 0;
+            }
         }
     },
     computed: {
@@ -38,6 +55,16 @@ export default {
     },
 }
 </script>
+
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+</style>
 
 <style lang="scss" module>
 .wrapper {
@@ -58,12 +85,14 @@ export default {
     margin-right: 50px;
 }
 
-.items p {
+.btn {
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 37px;
-    line-height: 0px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 15px;
     cursor: pointer;
+    user-select: none;
 }
 </style>
