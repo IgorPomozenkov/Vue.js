@@ -14,6 +14,7 @@
         </div>
         <div class="calc__buttons">
             <button class="calc__btn" v-for="button in buttons"
+                    :name="button"
                     v-bind:key="button"
                     v-bind:title="button"
                     v-bind:disabled="operand1 === '' || operand2 === ''"
@@ -25,10 +26,11 @@
             <label for="checkbox">Отобразить экранную клавиатуру</label>
             <div class="calc__keys" v-show="showCalcKeys">
                 <button class="calc__btn" v-for="key in CalcKeys"
+                        :name="key"
                         v-bind:key="key"
                         @click="addKeys(key)">{{ key }}
                 </button>
-                <button class="calc__btn" @click="delKeys">&larr;</button>
+                <button class="calc__btn" name="delKey" @click="delKeys">&larr;</button>
                 <div>
                     <input type="radio" name="radio" id="op1" value="operand1" v-model="picked">
                     <label for="op1">Операнд 1</label>
@@ -45,9 +47,9 @@ export default {
     name: 'Calc',
     data() {
         return {
-            operand1: '',
-            operand2: '',
-            result: 'ответ',
+            operand1: 0,
+            operand2: 0,
+            result: 0,
             error: '',
             buttons: ['+','-','*','/','Pow','C'],
             logs: {},
@@ -96,11 +98,11 @@ export default {
             this.result = Math.pow(this.operand1, this.operand2)
         },
         clear() {
-            this.result = 'ответ', this.operand1 = '', this.operand2 = ''
+            this.result = 0, this.operand1 = '', this.operand2 = ''
         },
 
-        calculate(operation = '+') {
-            this.result = '';
+        calculate(operation) {
+            this.result = 0;
             this.error = '';
             switch(operation) {
                 case '+':
