@@ -13,10 +13,10 @@
             <v-col :cols="2">{{item.value}}</v-col>
             <p :class="[$style.btn]" @click="modalCheck(idx)">&#8942;</p>
             <transition name="fade">
-                <ModalWindow v-if="modalShow == idx " />
+                <ModalWindow v-if="modalShow == idx" />
             </transition>
         </v-row>
-        <p>Total: {{ getFPV }}</p>
+        <div class="text-subtitle-1 mt-8">Total: {{ getFPV }}</div>
     </div>
 </template>
 

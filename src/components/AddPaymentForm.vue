@@ -1,27 +1,27 @@
 <template>
-    <div :class="[$style.form]">
-        <input type="date" placeholder="Payment date" v-model="date"/>
-        <!-- <input type="text" placeholder="Payment description" v-model="type"/> -->
-        <CategorySelect :categories="categories" @addSelect="addSelect"/>
-        <input type="number" placeholder="Payment amount" v-model.number="value"/>
-        <button :class="[$style.btn]" @click="onSaveClick">ADD<span>+</span></button>
-  </div>
+    <v-card class="pa-8">
+        <v-text-field type='date' v-model="date" label="Date"></v-text-field>
+        <v-select class="text-center" v-model="type" label="Category" :items="categories"></v-select>
+        <v-text-field type='number' v-model.number="value" label="Value"></v-text-field>
+        <Button :nameBtn="nameBtn" @clicked="onSaveClick"/>
+    </v-card>
 </template>
 
 <script>
-import CategorySelect from './CategorySelect.vue'
+import Button from './Button.vue'
 import { mapMutations, mapGetters } from 'vuex'
 
 export default {
     name: 'AddPaymentForm',
     components: {
-        CategorySelect
+        Button
     },
     data(){
         return {
             date: '',
             type: '',
-            value: null
+            value: null,
+            nameBtn: 'ADD'
         }
     },
     methods: {
@@ -42,9 +42,6 @@ export default {
                 }
             }
         },
-        addSelect(data){
-            this.type = data;
-        }
     },
     computed: {
         ...mapGetters({
@@ -60,38 +57,11 @@ export default {
     },
     mounted(){
         this.value = Number(location.search.slice(7)) || '';
+        this.type = this.$route.params.type || '';
     }
 }
 </script>
 
 <style lang="scss" module>
-.form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-}
 
-.form input {
-    margin-bottom: 11px;
-    padding: 5px;
-    border: 2px solid #c0c0c082;
-    outline: none;
-}
-
-.form button {
-    width: 130px;
-    align-self: flex-end;
-}
-
-.btn {
-    padding: 10px;
-    border: none;
-    background: #19b16b;
-    color: white;
-    cursor: pointer;
-}
-
-.btn span {
-    margin-left: 15px;
-}
 </style>

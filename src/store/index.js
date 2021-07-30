@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         paymentsList: [],
-        categoryList: [],
+        categoryList: ['Food', 'Sport', 'Transport', 'Education', 'Entertainment']
     },
     mutations: {
         setPaymentsListData(state, payload){

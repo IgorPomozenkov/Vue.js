@@ -1,12 +1,13 @@
 <template>
   <div :class="[$style.wrapper]">
-      <v-btn color="#19b16b" dark @click="onClick">ADD NEW COST <v-icon>mdi-plus</v-icon></v-btn>
+      <v-btn color="#19b16b" dark @click="onClick">{{ nameBtn }} <v-icon>mdi-plus</v-icon></v-btn>
   </div>
 </template>
 
 <script>
 export default {
     name: 'Button',
+    props: ['nameBtn'],
     methods: {
         onClick(){
             this.$emit('clicked');
