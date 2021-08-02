@@ -21,6 +21,7 @@ export default {
             date: '',
             type: '',
             value: null,
+            idPay: 0,
             nameBtn: 'ADD'
         }
     },
@@ -34,7 +35,8 @@ export default {
                 const data = {
                     date: this.date || this.getCurrentDate,
                     type,
-                    value
+                    value,
+                    idPay: this.idPay
                 }
                 this.$emit('addNewPayment', data);
                 if(this.$route.params.type){

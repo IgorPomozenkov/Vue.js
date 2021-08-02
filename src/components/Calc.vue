@@ -1,42 +1,38 @@
 <template>
     <div class="calc">
-        <h3>Калькулятор</h3>
+        <div class="text-h5 text-sm-h4">Калькулятор</div>
         <div class="calc__top">
-            <input type="number" name="operand1" placeholder="число 1" v-model.number="operand1"/>
-            <input type="number" name="operand2" placeholder="число 2/степень" v-model.number="operand2"/>
+            <v-text-field class="mr-4" type='number' name="operand1" v-model.number="operand1" label="число 1"></v-text-field>
+            <v-text-field type='number' name="operand2" v-model.number="operand2" label="число 2/степень"></v-text-field>
+        </div>
+        <div class="calc__info">
             <p class="result">{{result}}</p>
             <p class="error" v-show="error">{{error}}</p>
-            <!-- <div class="strange-message">
-                <template v-if="result < 0">Получилось отрицательное число</template>
-                <template v-else-if="result < 100">Результат в первой сотне</template>
-                <template v-else>Получилось слишком большое число</template>
-            </div> -->
         </div>
         <div class="calc__buttons">
-            <button class="calc__btn" v-for="button in buttons"
-                    :name="button"
-                    v-bind:key="button"
-                    v-bind:title="button"
-                    v-bind:disabled="operand1 === '' || operand2 === ''"
-                    @click="calculate(button)">{{ button }}
-            </button>
+            <v-btn color="primary" class="mr-2" v-for="button in buttons"
+                :name="button"
+                :key="button"
+                :disabled="operand1 === '' || operand2 === ''"
+                @click="calculate(button)">{{ button }}
+            </v-btn>
         </div>
         <div class="calc__keypad">
-            <input type="checkbox" name="checkbox" id="checkbox" v-model="showCalcKeys">
-            <label for="checkbox">Отобразить экранную клавиатуру</label>
+            <v-checkbox v-model="showCalcKeys" :label="`Отобразить экранную клавиатуру`"></v-checkbox>
             <div class="calc__keys" v-show="showCalcKeys">
-                <button class="calc__btn" v-for="key in CalcKeys"
-                        :name="key"
-                        v-bind:key="key"
-                        @click="addKeys(key)">{{ key }}
-                </button>
-                <button class="calc__btn" name="delKey" @click="delKeys">&larr;</button>
-                <div>
-                    <input type="radio" name="radio" id="op1" value="operand1" v-model="picked">
-                    <label for="op1">Операнд 1</label>
-                    <input type="radio" name="radio" id="op2" value="operand2" v-model="picked">
-                    <label for="op2">Операнд 2</label>
-                </div>
+                <v-btn color="primary" class="mr-2" v-for="key in CalcKeys"
+                    :name="key"
+                    :key="key"
+                    @click="addKeys(key)">{{ key }}
+                </v-btn>
+                <v-btn color="primary"
+                    :name="`delKey`"
+                    @click="delKeys">&larr;
+                </v-btn>
+                <v-radio-group row v-model="picked">
+                    <v-radio :label="`Операнд 1`" :value="`operand1`"></v-radio>
+                    <v-radio :label="`Операнд 2`" :value="`operand2`"></v-radio>
+                </v-radio-group>
             </div>
         </div>
     </div>
@@ -131,36 +127,20 @@ export default {
 
 <style>
     .calc {
-        margin: 80px 0;
+        max-width: 800px;
+        margin: 20px 0;
     }
 
     .calc__top {
-        height: 80px;
-        margin-top: 20px;
-    }
-
-    .calc__top input {
-        width: 115px;
-        padding: 5px;
-        margin-right: 2px;
-    }
-
-    .calc__btn {
-        width: 45px;
-        height: 40px;
-        margin-right: 2px;
+        display: flex;
+        margin-top: 40px;
     }
 
     .error {
-        color: rgb(245, 73, 73);
+        color: black;
     }
 
     .calc__keypad {
         margin-top: 50px;
     }
-
-    .calc__keys {
-        margin-top: 15px;
-    }
-
 </style>

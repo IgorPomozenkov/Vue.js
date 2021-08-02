@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-col>
-            <div class="text-h5 text-sm-h4" :class="[$style.title]">My personal costs</div>
+            <div class="text-h5 text-sm-h4 ma-5">My personal costs</div>
             <v-dialog v-model="dialog">
                 <template v-slot:activator="{on}">
                     <Button :nameBtn="nameBtn" @clicked="dialog = !dialog" v-on="on"/>
@@ -13,7 +13,7 @@
             <PaymentsDisplay :list="paymentsList"/>
         </v-col>
         <v-col>
-            <Chart :chart-data="datacollection"/>
+            <Chart :chart-data="datacollection" :options="chartOptions"/>
         </v-col>
     </v-row>
 </template>
@@ -38,6 +38,7 @@ export default {
             dialog: false,
             nameBtn: 'ADD NEW COST',
             datacollection: null,
+            chartOptions: null,
             food: 0
         }
     },
@@ -51,10 +52,7 @@ export default {
         ]),
         addData(data){
             this.addDataToPaymentsList(data)
-            if(data.type == 'Food') {
-                this.food += data.value;
-                this.fillData()
-            }
+            this.addValue(data)
         },
         fillData(){
             this.datacollection = {
@@ -73,9 +71,26 @@ export default {
                         hoverOffset: 4
                     }
                 ]
+            },
+            this.chartOptions = {
+                responsive: false,
+                maintainAspectRatio: false,
             }
         },
-        getValue(){},
+        addValue(data){
+            if(data.type == 'Food') {
+                this.food += data.value;
+                this.fillData()
+            }
+        },
+        getValue(){
+            this.paymentsList.forEach((item) => {
+                if(item.type == 'Food') {
+                    this.food += item.value;
+                    this.fillData()
+                }
+            })
+        },
     },
     computed: {
         ...mapGetters({
@@ -91,12 +106,11 @@ export default {
         this.fillData()
     },
     mounted(){
-    }
+        this.getValue()
+    },
 }
 </script>
 
 <style lang="scss" module>
-.title {
-  margin: 20px;
-}
+
 </style>

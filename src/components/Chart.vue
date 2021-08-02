@@ -7,7 +7,12 @@ export default {
     name: 'Chart',
     extends: Doughnut,
     mixins: [reactiveProp],
-    props: ['options'],
+    props: {
+        options: {
+            type: Object,
+            default: null
+        }
+    },
     mounted(){
         this.renderChart(this.chartData, this.options)
     }
